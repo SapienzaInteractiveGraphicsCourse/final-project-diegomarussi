@@ -1,19 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="./style.css" type="text/css" /> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IG PROJECT</title>
 </head>
 <body>
+    <canvas class="webgl"></canvas>
+
+
     <div class="container">
         <h1>2020: Covid Escape</h1>
     </div>
-    <canvas class="webgl"></canvas>
+
+    <div class="score-bar">
+        <div class="score-bar-value"></div>
+    </div>
+
+    <div class="health-bar">
+        <div class="health-bar-value"></div>
+        <div class="health-bar-fill"></div>
+    </div>
+
+    
+    <button class="orbitButton">Orbit Enabled</button>
+    <button class="cameraRotationButton">Camera AutoRotation</button>
+    
+    
+    
     <section></section>
-
-
-    <script type="module" src="main.js"></script>
+    
 </body>
 </html>
