@@ -1,15 +1,16 @@
 # 3DGraphic_Project-Marussi_Diego
 
 This project consist in the development of a game called "2020: Covid Escape". This game is basically an endless run where you have to avoid the wall obstacles or worst, the covid.
+You can play or interact with the scene in many ways.
 
-You can play or interact with the scene in many ways:
+TO PLAY:
 
-To Play:
 - you can MOVE with the keyboard keys "A" and "D" to move left and right respectively.
 
 - In the  top-left corner you can find your score and the amount of life of the humanoid.
 
-Controls:
+
+CONTROLS AND BUTTON:
 - Control the camera with the Orbit control (with the mouse).
 - clicking the button orbit enabled/disabled you can lock the camera and permit you to press, eventually,
   the keyboard key "O" to change the camera from behing to in 1° person.
@@ -21,10 +22,7 @@ Controls:
 
 
 ![Covid_game](https://user-images.githubusercontent.com/49034820/192124929-13b15d4d-251e-4b23-a3a3-8c7498a3385d.png)
-<<<<<<< HEAD
-=======
 
->>>>>>> d17ce0341953c63f741cdd9aabb1ecebeffa3270
 
 
 --> This is my Covid Escape 2022, play at this link:
