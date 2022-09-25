@@ -21,6 +21,10 @@ Controls:
 
 
 ![Covid_game](https://user-images.githubusercontent.com/49034820/192124929-13b15d4d-251e-4b23-a3a3-8c7498a3385d.png)
+<<<<<<< HEAD
+=======
+
+>>>>>>> d17ce0341953c63f741cdd9aabb1ecebeffa3270
 
 
 --> This is my Covid Escape 2022, play at this link:
