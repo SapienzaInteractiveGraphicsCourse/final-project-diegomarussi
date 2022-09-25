@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 
+
 export default class Utils{
 
 getTexture(path){
@@ -8,6 +9,7 @@ getTexture(path){
     const textureLoader = new THREE.TextureLoader()
     return texture = textureLoader.load(path)
     }
+
 
 
 }

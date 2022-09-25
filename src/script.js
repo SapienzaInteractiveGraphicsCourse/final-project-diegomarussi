@@ -57,7 +57,7 @@ const cubicBackground = cubeTextureLoader.load([
  * <<<<<<<<<<<<<<<<<<<<<<<<<<   DEBUG and INIT   >>>>>>>>>>>>>>>>>>>>>>>>>>>>
  */
 
- //const gui = new dat.GUI()
+ const gui = new dat.GUI()
 
  // Canvas
  const canvas = document.querySelector('canvas.webgl')
@@ -108,10 +108,6 @@ world.createSphereWorld()
 // Adding the Plane in the Scene
 scene.add( world.mesh )
 
-
-
-// const grid = new World()
-// grid.createGrid(scene)
 
 
 
@@ -206,7 +202,7 @@ const {rightLamps, leftLamps} = StreetLamp.addStreetLamps(lampsNum, world.mesh, 
 // --------------------  HUMANOID  --------------------
 
 
-const human = new Humanoid();
+const human = new Humanoid(gui);
 scene.add(human.torso);
 
 console.log("position: ", +human.torso.position);
@@ -222,8 +218,6 @@ const hBar = new HealthBar(document.querySelector('.health-bar'));
 
 
 // ----- ScoreBar -----
-
-let score = 0;
 
 const scoreBar = new Score(document.querySelector('.score-bar'), 0);
 
@@ -267,17 +261,29 @@ scoreBar.velDifficulty = 1.0;
 
 
 
-const sun = new SunLight(0, 20, 3);
+const sun = new SunLight(0, 20, 3, gui);
 sun.sun.target = human.torso;
 scene.add(sun.sun)
 //scene.add(sun.sunHelper)
 
 
 
+
 // --------------------  Spot Lights  --------------------
 
-var leftSpotLights = [];
-var rightSpotLights = [];
+
+const spotLightR = new SpotLight(10, 6, -2, gui, 'spotLightR controls').spotLight
+spotLightR.target = centerSpotR;
+scene.add(spotLightR)
+
+const spotLightL = new SpotLight(-10, 6, -2, gui, 'spotLightL controls').spotLight
+spotLightL.target = centerSpotL;
+scene.add(spotLightL)
+
+
+
+// var leftSpotLights = [];
+// var rightSpotLights = [];
 
 // MAKE A METHOD TO INSERT SPOTLIGHT EACH SIDE IN THE ANIMATION
 // ONTO THE STREETLAMPS, BUT PROBLEM OVERWHELMING THE SHADER
@@ -297,24 +303,6 @@ var rightSpotLights = [];
 
 
 
-const spotLight1 = new SpotLight(10, 6, -2).spotLight
-spotLight1.target = centerSpotR;
-scene.add(spotLight1)
-
-const spotLight2 = new SpotLight(-10, 6, -2).spotLight
-spotLight2.target = centerSpotL;
-scene.add(spotLight2)
-
-
-
-
-
-
-// ---------------------------- Helpers ----------------------------
-// The helpers, for now, are under their respective object to control
-
-const axesHelper = new THREE.AxesHelper(6)
-scene.add(axesHelper)
 
 
 
@@ -387,6 +375,9 @@ orbit.maxDistance = 40
 orbit.update()
 
 
+// const axesHelper = new THREE.AxesHelper(6)
+// scene.add(axesHelper)
+
 
 
 /**
@@ -418,19 +409,6 @@ audioLoader.load( 'sound/mixSuspence.ogg', function( buffer ) {
  * <<<<<<<<<<<<<<<<<<<<<<<<<<   EVENT LISTENERS   >>>>>>>>>>>>>>>>>>>>>>>>>>>>
  */
 
-// ----- Ray caster -----
-/* tracking of the mouse position and when it encounter an object you can do functions, changing */
-// const mousePosition = new THREE.Vector2();
-// window.addEventListener("mousemove", function(e){
-//     mousePosition.x = (e.clientX / window.innerWidth) *2 - 1
-//     mousePosition.y = - (e.clientY / window.innerHeight) *2 + 1
-// });
-
-// const rayCaster = new THREE.Raycaster()
-
-// const sphereID = sphere.id
-// sphere.name = 'sphere'
-// human.torso.name = 'bot'
 
 
 
@@ -453,7 +431,7 @@ function onDocumentKeyDown(event) {
         human.torso.position.x += xMove      // with the key "d" you can move behind 
         //human.torso.rotation.y = Math.PI/6
     
-    } else if (keyCode == 79) {     // with the key "o" you can change the camera position 
+    } else if (keyCode == 79) {     // with the key "O" you can change the camera position 
         flagChangeCam = !flagChangeCam
     } else if (keyCode == 32) {     // with the key "space" you can pause the animation
         event.preventDefault()
@@ -501,7 +479,7 @@ cameraAroundButton.button.addEventListener('click', function onClick() {
 // ___________________ TWEENS ____________________
 
 
-const mainTween = new Tweens(human, sun.sun, spotLight1, spotLight2);
+const mainTween = new Tweens(human, sun.sun, spotLightR, spotLightL);
 
 
 
@@ -511,8 +489,9 @@ let stepCam = 0;
 let speedCam = 0.005;
 
 
-var clock = new THREE.Clock();
-var delta = 0;
+// const clock = new THREE.Clock();
+// const elapsedTime = clock.getElapsedTime();
+// const delta = clock.getDelta()/1000;
 
 
 // ---------------------------- animation function ----------------------------
@@ -520,97 +499,109 @@ function animate(time){
 
     if(flagPlayAnim == true) {
 
-        delta = clock.getDelta();
     
         if(flagGameOver == true) {
             stop()
         }
 
         updateAnim(time)
-        updateAnim(delta)
-        renderer.render(scene, camera)
 
+        renderer.render(scene, camera)
+        
+        
+        
         
     }else{
-        
+        //paused()
     }
     
     
-
     requestAnimationFrame( animate );
+    
     
 
 }
 
 
 animate()
-//renderer.setAnimationLoop(animate)
+
+function paused(elapsedTime){
+//
+}
 
 
+// function start(){
+//     flagPlayAnim = true;
+//     animate()
+// }
+
+// function stop() {
+//     flagPlayAnim = false;
+// }
 
 function stop() {
     animate(null );
 }
 
 function updateAnim(time){
+
+    world.mesh.rotation.x = time/(scoreBar.velDifficulty*10000);
+
+    step += speed
+    human.head.position.y = 1.05 + 0.2 * Math.abs(Math.sin(step))
+    human.head.rotation.y = time/1000
+
+
+    TWEEN.update(time/(scoreBar.velDifficulty))
+
+
+    // Score and Difficulty
+    scoreBar.setScore(Math.round(time/1000));        
+    scoreBar.setDifficulty(scoreBar.score, scoreBar.velDifficulty);
+
+
+    if(hBar.health == 0){
+        stop();
+    }else{
+
+    // collision.detectCollsion(scene, human.torso, hBar)
+    //collision.detectCollsion2(human.collideBB, human.torso, virusArray.collisionArrayVirus, hBar, hBar.health, 'virus' );
+    //collision.detectCollsion2(human.collideBB, human.torso, wallArray.collisionArrayWall, hBar, hBar.health, 'wall' );
+
+
+    collision.detectCollsion3(human.torso, virusArray.randomObjArray, hBar, hBar.health, 'virus' );
+    collision.detectCollsion3(human.torso, wallArray.randomObjArray, hBar, hBar.health, 'wall' );
     
-        world.mesh.rotation.x = time/(scoreBar.velDifficulty*10000);
-
-        step += speed
-        human.head.position.y = 1.05 + 0.2 * Math.abs(Math.sin(step))
-        human.head.rotation.y = time / (scoreBar.velDifficulty *1000)
+    }
 
 
-        TWEEN.update(time/(scoreBar.velDifficulty))
+    stepCam += speedCam
 
- 
-        // Score and Difficulty
-        scoreBar.setScore(Math.round(time/1000));        
-        scoreBar.setDifficulty(scoreBar.score, scoreBar.velDifficulty);
-
-
-        if(hBar.health == 0){
-            stop();
-        }else{
-
-        // collision.detectCollsion(scene, human.torso, hBar)
-        //collision.detectCollsion2(human.collideBB, human.torso, virusArray.collisionArrayVirus, hBar, hBar.health, 'virus' );
-        //collision.detectCollsion2(human.collideBB, human.torso, wallArray.collisionArrayWall, hBar, hBar.health, 'wall' );
-
-
-        collision.detectCollsion3(human.torso, virusArray.randomObjArray, hBar, hBar.health, 'virus' );
-        collision.detectCollsion3(human.torso, wallArray.randomObjArray, hBar, hBar.health, 'wall' );
-        
-        }
-
-
-        stepCam += speedCam
-
-        if(flagOrbit){
-            orbit.update();
-            flagChangeCam = true;
-            scene.add(camera);
-            if(flagCameraAround && flagOrbit){
-                hBar.health = 100;
-                center.rotation.y = time/(scoreBar.velDifficulty*2000);
-                center.add(camera)
-                camera.position.y = 2 + 4 * (Math.sin(stepCam))
-                
-            }else{
-                scene.add(camera)
-                center.rotation.y = 0;
-            }
+    if(flagOrbit){
+        orbit.update();
+        flagChangeCam = true;
+        scene.add(camera);
+        if(flagCameraAround && flagOrbit){
+            hBar.health = 100;
+            center.rotation.y = time/(scoreBar.velDifficulty*2000);
+            center.add(camera)
+            camera.position.y = 2 + 4 * (Math.sin(stepCam))
             
         }else{
-            flagCameraAround = false
-            if(flagChangeCam){
-                camera.position.set(0, 6, 10)
-                scene.add(camera)
-            }else{
-                camera.position.set(0, 4, -1)
-                human.torso.add(camera)
-            }
+            scene.add(camera)
+            center.rotation.y = 0;
         }
+        
+    }else{
+        flagCameraAround = false
+        if(flagChangeCam){
+            camera.position.set(0, 6, 10)
+            scene.add(camera)
+        }else{
+            camera.position.set(0, 4, -1)
+            human.torso.add(camera)
+        }
+    }
 
 
 }
@@ -641,82 +632,3 @@ function updateAnim(time){
         // },time/3000);
 
 
-
-        // rayCaster.setFromCamera(mousePosition, camera)
-        // const intersect = rayCaster.intersectObjects(scene.children)
-        // console.log(intersect)
-
-        // for (let i = 0; i < intersect.length; i++){
-        //      if(intersect[i].object.name === 'sphere'){
-        //          intersect[i].object.materialSphere.color.set(0xFFFFFF)
-        //      }
-        //      if(intersect[i].object.name === 'bot'){
-        //          intersect[i].object.rotation.y = time /200
-        //      }
-        // }
-
-
-
-/*
-// Event to rotate the sphere passing along with the mouse
-document.addEventListener('mousemove', onDocumentMouseMove)
-
-let mouseX = 0
-let mouseY = 0
-
-let targetX = 0
-let targetY = 0
-
-const windowHalfX = window.innerWidth / 2
-const windowHalfY = window.innerHeight / 2
-
-function onDocumentMouseMove(event) {
-    mouseX = (event.clientX - windowHalfX)
-    mouseY = (event.clientY - windowHalfY)
-}
-
-
-// event to create an effect of movement on the sphere when scrolling up and down
-const updateSphere = (event) => {
-    sphere.position.y = window.scrollY * .002
-}
-
-window.addEventListener('scroll', updateSphere);
-*/
-
-
-
-
-/*
-// ------ Tick (time) function
-const clock = new THREE.Clock()
-
-const tick = () =>
-{
-
-    targetX = mouseX * .001
-    targetY = mouseY * .001
-
-    const elapsedTime = clock.getElapsedTime()
-
-    // Update objects
-    sphere.rotation.y += 1.0 * elapsedTime
-
-    sphere.rotation.x = .5 * (targetX - sphere.rotation.y)
-    sphere.rotation.y = .5 * (targetY - sphere.rotation.x)
-    sphere.position.z = -.5 * (targetY - targetX)
-
-
-    // Update Orbital Controls
-    // orbit.update()
-
-    // Render
-    renderer.render(scene, camera)
-
-    // Call tick again on the next frame
-    window.requestAnimationFrame(tick)
-}
-
-tick()
-
-*/

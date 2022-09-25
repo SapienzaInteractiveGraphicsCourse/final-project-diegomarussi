@@ -1,16 +1,15 @@
+import { GUI } from 'dat.gui';
 import * as THREE from 'three'
-import * as dat from 'dat.gui'
 import StreetLamp from './streetLamp.js';
 
 /**
  * <<<<<<<<<<<<<<<<<<<<<<<<<<   LIGHTS   >>>>>>>>>>>>>>>>>>>>>>>>>>>>
  */
 
-const gui = new dat.GUI()
 
 export class SunLight {
 
- constructor(x, y, z) {
+ constructor(x, y, z, gui) {
 
     this.sun;
     this.sunHelper;
@@ -18,12 +17,12 @@ export class SunLight {
     this.y = y;
     this.z = z;
 
-    this.createSun();
+    this.createSun(gui);
 
   }
 
 
-    createSun() {
+    createSun(gui) {
 
         // --------------------  Directional Light  --------------------
         //this.sun = new THREE.DirectionalLight(0xffffE0, 0.3)
@@ -38,9 +37,9 @@ export class SunLight {
         // Add a folder in the GUI command relative to an object, for ordering purposes
         const light = gui.addFolder('SunLight control')
 
-        light.add(this.sun.position, 'x').min(-20).max(20).step(1.0)
-        light.add(this.sun.position, 'y').min(-10).max(10).step(0.5)
-        light.add(this.sun.position, 'z').min(-20).max(20).step(1.0)
+        //light.add(this.sun.position, 'x').min(-20).max(20).step(1.0)
+        light.add(this.sun.position, 'y').min(-5).max(50).step(1.0)
+        //light.add(this.sun.position, 'z').min(-20).max(20).step(1.0)
         light.add(this.sun, 'intensity').min(0).max(5).step(0.1)
 
         // Change color on GUI
@@ -63,7 +62,7 @@ export class SunLight {
 
 export class SpotLight {
 
-    constructor(x, y, z) {
+    constructor(x, y, z, gui, guiFolder) {
 
        this.spotLight;
        this.x = x;
@@ -71,14 +70,13 @@ export class SpotLight {
        this.z = z;
    
        this.streetLamp = new StreetLamp();
-       this.createSpotLightCenter(this.x, this.y, this.z);
-       //this.createSpotLightLamp();
+       this.createSpotLightCenter(this.x, this.y, this.z, gui, guiFolder);
    
      }
 
 
 
-    createSpotLightCenter(x, y, z){
+    createSpotLightCenter(x, y, z, gui, guiFolder){
         
         // --------------------  SpotLight  --------------------
         this.spotLight = new THREE.SpotLight(0xffffE0, 1.0)
@@ -87,22 +85,27 @@ export class SpotLight {
         //this.spotLight.angle = Math.PI/6
         this.spotLight.penumbra = 0.3
         this.spotLight.castShadow = true
+
+
+        // Add a folder in the GUI command relative to an object, for ordering purposes
+        const light = gui.addFolder(guiFolder)
+
+        light.add(this.spotLight.position, 'x').min(-20).max(20).step(1.0)
+        light.add(this.spotLight.position, 'y').min(-5).max(50).step(1.0)
+        light.add(this.spotLight.position, 'z').min(-20).max(20).step(1.0)
+        light.add(this.spotLight, 'intensity').min(0).max(5).step(0.1)
+        light.add(this.spotLight, 'penumbra').min(0).max(1.0).step(0.1)
+
+        // Change color on GUI
+        const spotLightColor = {
+            color: 0xffffE0
+        }
+        light.addColor(spotLightColor, 'color').onChange(() => {
+            this.spotLight.color.set(spotLightColor.color)
+        })
   
     }
 
-
-
-    createSpotLightLamp(){
-        
-        // --------------------  SpotLight  --------------------
-        this.spotLight = new THREE.SpotLight(0xffffE0, 1.0)
-        this.spotLight.position.set(0, -0.5*this.streetLamp.bulbLampRadius, 0)
-        this.spotLight.target = null
-        //this.spotLight.angle = Math.PI/6
-        this.spotLight.penumbra = 0.3
-        this.spotLight.castShadow = true
-  
-    }
 
 }
 

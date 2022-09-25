@@ -1,29 +1,30 @@
-# 3DGraphic_Project
-Ideas for this project:
+# 3DGraphic_Project-Marussi_Diego
 
-An endless run game about a "humanoid" that has to avoid the covid virus and some obstacles on the ground.
-Slowly the velocity of rotation of the world (and so the run animation) increase to make harder the game.
-The character has the possibility, colleting 3 vaccines, to be invincible for some time and faster.
-The aim is to make as many points as possible and maybe arrived at the end of the covid infection? 
+This project consist in the development of a game called "2020: Covid Escape". This game is basically an endless run where you have to avoid the wall obstacles or worst, the covid.
 
-- Understand how to have keyframe using tweenJS to make more step in a tween to have smoother animations.
-  (otherwise make thousands of tween for the run animation)
+You can play or interact with the scene in many ways:
 
-- Add the function to create randomly on the world objects like wall(to avoid or jumpo over), covid ball, vaccine, ...
+To Play:
+- you can MOVE with the keyboard keys "A" and "D" to move left and right respectively.
 
-- Add the function of interception/collision , to make the objects tangible and stop the character (with collision function + physics??)
+- In the  top-left corner you can find your score and the amount of life of the humanoid.
 
-- Add physics?? (like rain covid ball, or rain strange objects like cube ecc.. ??)
+Controls:
+- Control the camera with the Orbit control (with the mouse).
+- clicking the button orbit enabled/disabled you can lock the camera and permit you to press, eventually,
+  the keyboard key "O" to change the camera from behing to in 1° person.
+  If the Orbit is enabled, you can enabled/disabled the CAMERA AUTOROTATION
+  to move autonomously the camera around the environment.
+- you can PAUSE the animation with the "SpaceBar" keyboard key (but the time and the environment go on in background)
+- you can open the controls in the top-right corner to CONTROL PROPERTIES OF SOME OBJECT of the environment,
+  like color, position, and so on.
 
-- Add a button for start and stop for tween animation
-  for the camera to show the world and the objects going around the scene in a smooth way
 
-- Add control for lights and stuff (orbitControl for the camera already), maybe change the character color, ecc..
-
-- Add the fucking Sun, associate with the sun DirectionalLight and rotate around the "street" (day and night).
-  Moreover possibility to play at night with just SpotLights or in the morning with the sunLight.
-
-- --- I hope to resolve the Tween animation situation, I'm a little stuck with that for now. ---
+<img
+  src="../img/Covid_game.png"
+  alt="Alt text"
+  title="2020: Covid Game"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
 
 
 --> This is my Covid Escape 2022, play at this link:

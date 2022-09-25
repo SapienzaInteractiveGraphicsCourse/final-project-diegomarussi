@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import * as dat from 'dat.gui'
 import Utils from './utils.js'
 
 
@@ -6,7 +7,7 @@ import Utils from './utils.js'
 export default class Humanoid{
 
 
-    constructor(){
+    constructor(gui){
         this.torso;
         this.head;
         this.rightShoulder;
@@ -30,10 +31,11 @@ export default class Humanoid{
         this.rightFoot;
         this.leftFoot;
 
+
         this.collideBB;
         
         this.utils = new Utils();
-        this.init();
+        this.init(gui);
 
     }
 
@@ -43,7 +45,8 @@ export default class Humanoid{
 
   
     // ____________  torso  ____________
-    init(){
+    init(gui){
+
 
         //loading texture
         const golfNormalTexture = this.utils.getTexture('/texture/streetNormal.png');
@@ -73,8 +76,30 @@ export default class Humanoid{
         const footWidth = 0.25
         const footLenght = 0.55;
 
+     
+        // Add a folder in the GUI command relative to the humanoid
+        const humanFolder = gui.addFolder('Humanoid colors control')
+
+        // Change Body color on GUI
+        const bodyCol = {
+            color: 0xff0000
+        }
+        humanFolder.addColor(bodyCol, 'color').onChange(() => {
+            torsoMaterial.color.set(bodyCol.color)
+        })
+
+        // Change Legs color on GUI
+        const legsCol = {
+            color: 0x0000ff
+        }
+        humanFolder.addColor(legsCol, 'color').onChange(() => {
+            legsMaterial.color.set(legsCol.color)
+        })
 
 
+
+
+        // ____________  Torso  ____________
         const torsoGeom = new THREE.BoxGeometry( torsoWidth, torsoHeight, torsoWidth )
 
         // Torso material
@@ -136,13 +161,9 @@ export default class Humanoid{
 
         const rightShoulderGeom = new THREE.SphereGeometry( shoulderRadius, 16, 32 )
 
-        // rightShoulder  material
-        const rightShoulderMaterial = new THREE.MeshStandardMaterial()
-        rightShoulderMaterial.normalMap = golfNormalTexture
-        rightShoulderMaterial.color = new THREE.Color(0xff0000)
-
+      
         // RightArm Mesh
-        this.rightShoulder = new THREE.Mesh( rightShoulderGeom, rightShoulderMaterial )
+        this.rightShoulder = new THREE.Mesh( rightShoulderGeom, torsoMaterial )
 
         // Adding the RightArm on the Torso
         this.rightShoulder.position.set(0.5*torsoWidth, 0.3*torsoHeight, 0)
@@ -156,14 +177,10 @@ export default class Humanoid{
 
         const leftShoulderGeom = new THREE.SphereGeometry( shoulderRadius, 16, 32 )
 
-        // rightShoulder  material
-        const leftShoulderMaterial = new THREE.MeshStandardMaterial()
-        leftShoulderMaterial.normalMap = golfNormalTexture
-        leftShoulderMaterial.color = new THREE.Color(0xff0000)
         
 
         // RightArm Mesh
-        this.leftShoulder = new THREE.Mesh( leftShoulderGeom, leftShoulderMaterial )
+        this.leftShoulder = new THREE.Mesh( leftShoulderGeom, torsoMaterial )
         
 
         // Adding the RightArm on the Torso
@@ -178,13 +195,8 @@ export default class Humanoid{
 
         const upperRightArmGeom = new THREE.BoxGeometry( upperArmHeight, upperArmWidth, upperArmWidth )
 
-        // upperRightArm material
-        const upperRightArmMaterial = new THREE.MeshStandardMaterial()
-        upperRightArmMaterial.normalMap = golfNormalTexture
-        upperRightArmMaterial.color = new THREE.Color(0xff0000)
-
         // RightArm Mesh
-        this.upperRightArm = new THREE.Mesh( upperRightArmGeom, upperRightArmMaterial )
+        this.upperRightArm = new THREE.Mesh( upperRightArmGeom, torsoMaterial )
 
         // Adding the RightArm on the Torso
         this.upperRightArm.position.set(2.5*shoulderRadius, 0, 0)
@@ -197,13 +209,8 @@ export default class Humanoid{
 
         const upperLeftArmGeom = new THREE.BoxGeometry( upperArmHeight, upperArmWidth, upperArmWidth )
 
-        // upperLeftArm material
-        const upperLeftArmMaterial = new THREE.MeshStandardMaterial()
-        upperLeftArmMaterial.normalMap = golfNormalTexture
-        upperLeftArmMaterial.color = new THREE.Color(0xff0000)
-
         // LeftArm Mesh
-        this.upperLeftArm = new THREE.Mesh( upperLeftArmGeom, upperLeftArmMaterial )
+        this.upperLeftArm = new THREE.Mesh( upperLeftArmGeom, torsoMaterial )
 
         // Adding the LeftArm on the Torso
         this.upperLeftArm.position.set(-2.5*shoulderRadius, 0, 0)
@@ -216,13 +223,8 @@ export default class Humanoid{
 
         const rightElbowGeom = new THREE.SphereGeometry( elbowRadius, 32, 16 )
 
-        // rightElbow material
-        const rightElbowMaterial = new THREE.MeshStandardMaterial()
-        rightElbowMaterial.normalMap = golfNormalTexture
-        rightElbowMaterial.color = new THREE.Color(0xff0000)
-
         // rightElbow Mesh
-        this.rightElbow = new THREE.Mesh( rightElbowGeom, rightElbowMaterial )
+        this.rightElbow = new THREE.Mesh( rightElbowGeom, torsoMaterial )
 
         // Adding the rightElbow on the upperArm
         this.rightElbow.position.set(0.6*upperArmHeight, 0, 0)
@@ -236,13 +238,8 @@ export default class Humanoid{
 
         const leftElbowGeom = new THREE.SphereGeometry( elbowRadius, 32, 16 )
 
-        // leftElbow material
-        const leftElbowMaterial = new THREE.MeshStandardMaterial()
-        leftElbowMaterial.normalMap = golfNormalTexture
-        leftElbowMaterial.color = new THREE.Color(0xff0000)
-
         // rightElbow Mesh
-        this.leftElbow = new THREE.Mesh( leftElbowGeom, leftElbowMaterial )
+        this.leftElbow = new THREE.Mesh( leftElbowGeom, torsoMaterial )
 
         // Adding the rightElbow on the upperArm
         this.leftElbow.position.set(-0.6*upperArmHeight, 0, 0)
@@ -257,13 +254,8 @@ export default class Humanoid{
 
         const lowerRightArmGeom = new THREE.BoxGeometry( lowerArmHeight, lowerArmWidth, lowerArmWidth )
 
-        // lowerRightArm material
-        const lowerRightArmMaterial = new THREE.MeshStandardMaterial()
-        lowerRightArmMaterial.normalMap = golfNormalTexture
-        lowerRightArmMaterial.color = new THREE.Color(0xff0000)
-
         // RightArm Mesh
-        this.lowerRightArm = new THREE.Mesh( lowerRightArmGeom, lowerRightArmMaterial )
+        this.lowerRightArm = new THREE.Mesh( lowerRightArmGeom, torsoMaterial )
 
         // Adding the lowerRightArm on the rightElbow
         this.rightElbow.add( this.lowerRightArm )
@@ -275,12 +267,7 @@ export default class Humanoid{
 
         const lowerLeftArmGeom = new THREE.BoxGeometry( lowerArmHeight, lowerArmWidth, lowerArmWidth )
 
-        // lowerLeftArm material
-        const lowerLeftArmMaterial = new THREE.MeshStandardMaterial()
-        lowerLeftArmMaterial.normalMap = golfNormalTexture
-        lowerLeftArmMaterial.color = new THREE.Color(0xff0000)
-
-        this.lowerLeftArm = new THREE.Mesh( lowerLeftArmGeom, upperLeftArmMaterial )
+        this.lowerLeftArm = new THREE.Mesh( lowerLeftArmGeom, torsoMaterial )
 
         // Adding the lowerLeftArm on the leftElbow
         this.leftElbow.add( this.lowerLeftArm )
@@ -293,11 +280,11 @@ export default class Humanoid{
 
         const rightHandGeom = new THREE.BoxGeometry( handHeight, handWidth, handHeight )
 
-        // rightHand material
-        const rightHandMaterial = new THREE.MeshStandardMaterial()
-        rightHandMaterial.normalMap = golfNormalTexture
+        // hand material
+        const handMaterial = new THREE.MeshStandardMaterial()
+        handMaterial.normalMap = golfNormalTexture
 
-        this.rightHand = new THREE.Mesh( rightHandGeom, rightHandMaterial )
+        this.rightHand = new THREE.Mesh( rightHandGeom, handMaterial )
 
         // Adding the rightHand on the lowerRightArm
         this.lowerRightArm.add( this.rightHand )
@@ -309,11 +296,7 @@ export default class Humanoid{
 
         const leftHandGeom = new THREE.BoxGeometry( handHeight, handWidth, handHeight )
 
-        // leftHand material
-        const leftHandMaterial = new THREE.MeshStandardMaterial()
-        leftHandMaterial.normalMap = golfNormalTexture
-
-        this.leftHand = new THREE.Mesh( leftHandGeom, leftHandMaterial )
+        this.leftHand = new THREE.Mesh( leftHandGeom, handMaterial )
 
         // Adding the leftHand on the lowerLeftArm
         this.lowerLeftArm.add( this.leftHand )
@@ -327,12 +310,12 @@ export default class Humanoid{
         const rightHipGeom = new THREE.SphereGeometry( hipRadius, 32, 16 )
 
         // rightHip material
-        const rightHipMaterial = new THREE.MeshStandardMaterial()
-        rightHipMaterial.normalMap = golfNormalTexture
-        rightHipMaterial.color = new THREE.Color(0x0000aa)
+        const legsMaterial = new THREE.MeshStandardMaterial()
+        legsMaterial.normalMap = golfNormalTexture
+        legsMaterial.color = new THREE.Color(0x0000aa)
 
         // LeftLeg Mesh
-        this.rightHip = new THREE.Mesh( rightHipGeom, rightHipMaterial )
+        this.rightHip = new THREE.Mesh( rightHipGeom, legsMaterial )
 
         // Adding the LeftLeg in the Scene
         this.torso.add( this.rightHip )
@@ -345,13 +328,8 @@ export default class Humanoid{
 
         const leftHipGeom = new THREE.SphereGeometry( hipRadius, 32, 16 )
 
-        // leftHip material
-        const leftHipMaterial = new THREE.MeshStandardMaterial()
-        leftHipMaterial.normalMap = golfNormalTexture
-        leftHipMaterial.color = new THREE.Color(0x0000aa)
-
         // leftHip Mesh
-        this.leftHip = new THREE.Mesh( leftHipGeom, leftHipMaterial )
+        this.leftHip = new THREE.Mesh( leftHipGeom, legsMaterial )
 
         // Adding the leftHip in the Scene
         this.torso.add( this.leftHip )
@@ -362,15 +340,9 @@ export default class Humanoid{
 
         const upperRightLegGeom = new THREE.BoxGeometry( upperLegWidth, upperLegHeight, upperLegWidth )
 
-        // upperRightLeg material
-        const upperRightLegMaterial = new THREE.MeshStandardMaterial()
-        //upperRightLegMaterial.metalness = 0.7
-        //upperRightLegMaterial.roughness = 0.2
-        upperRightLegMaterial.color = new THREE.Color(0x0000aa)
-        upperRightLegMaterial.normalMap = golfNormalTexture
 
         // RightLeg Mesh
-        this.upperRightLeg = new THREE.Mesh( upperRightLegGeom, upperRightLegMaterial )
+        this.upperRightLeg = new THREE.Mesh( upperRightLegGeom, legsMaterial )
 
         // Adding the RightLeg on the Torso
         this.rightHip.add( this.upperRightLeg )
@@ -383,13 +355,8 @@ export default class Humanoid{
 
         const upperLeftLegGeom = new THREE.BoxGeometry( upperLegWidth, upperLegHeight, upperLegWidth )
 
-        // upperLeftLeg material
-        const upperLeftLegMaterial = new THREE.MeshStandardMaterial()
-        upperLeftLegMaterial.normalMap = golfNormalTexture
-        upperLeftLegMaterial.color = new THREE.Color(0x0000aa)
-
         // LeftLeg Mesh
-        this.upperLeftLeg = new THREE.Mesh( upperLeftLegGeom, upperLeftLegMaterial )
+        this.upperLeftLeg = new THREE.Mesh( upperLeftLegGeom, legsMaterial )
 
         // Adding the LeftLeg on the Torso
         this.leftHip.add( this.upperLeftLeg )
@@ -401,13 +368,8 @@ export default class Humanoid{
 
         const rightKneeGeom = new THREE.SphereGeometry( kneeRadius, 32, 16 )
 
-        // rightKnee material
-        const rightKneeMaterial = new THREE.MeshStandardMaterial()
-        rightKneeMaterial.normalMap = golfNormalTexture
-        rightKneeMaterial.color = new THREE.Color(0x0000aa)
-
         // LeftLeg Mesh
-        this.rightKnee = new THREE.Mesh( rightKneeGeom, rightKneeMaterial )
+        this.rightKnee = new THREE.Mesh( rightKneeGeom, legsMaterial )
 
         // Adding the LeftLeg in the Scene
         this.upperRightLeg.add( this.rightKnee )
@@ -419,13 +381,8 @@ export default class Humanoid{
 
         const leftKneeGeom = new THREE.SphereGeometry( kneeRadius, 32, 16 )
 
-        // leftKnee material
-        const leftKneeMaterial = new THREE.MeshStandardMaterial()
-        leftKneeMaterial.normalMap = golfNormalTexture
-        leftKneeMaterial.color = new THREE.Color(0x0000aa)
-
         // LeftLeg Mesh
-        this.leftKnee = new THREE.Mesh( leftKneeGeom, leftKneeMaterial )
+        this.leftKnee = new THREE.Mesh( leftKneeGeom, legsMaterial )
 
         // Adding the LeftLeg in the Scene
         this.upperLeftLeg.add( this.leftKnee )
@@ -437,13 +394,8 @@ export default class Humanoid{
 
         const lowerRightLegGeom = new THREE.BoxGeometry( lowerLegWidth, lowerLegHeight, lowerLegWidth )
 
-        // lowerRightLeg material
-        const lowerRightLegMaterial = new THREE.MeshStandardMaterial()
-        lowerRightLegMaterial.normalMap = golfNormalTexture
-        lowerRightLegMaterial.color = new THREE.Color(0x0000aa)
-
         // RightLeg Mesh
-        this.lowerRightLeg = new THREE.Mesh( lowerRightLegGeom, lowerRightLegMaterial )
+        this.lowerRightLeg = new THREE.Mesh( lowerRightLegGeom, legsMaterial )
 
         // Adding the RightLeg in the Scene
         this.rightKnee.add( this.lowerRightLeg )
@@ -455,13 +407,8 @@ export default class Humanoid{
 
         const lowerLeftLegGeom = new THREE.BoxGeometry( lowerLegWidth, lowerLegHeight, lowerLegWidth )
 
-        // lowerLeftLeg material
-        const lowerLeftLegMaterial = new THREE.MeshStandardMaterial()
-        lowerLeftLegMaterial.normalMap = golfNormalTexture
-        lowerLeftLegMaterial.color = new THREE.Color(0x0000aa)
-
         // RightLeg Mesh
-        this.lowerLeftLeg = new THREE.Mesh( lowerLeftLegGeom, lowerLeftLegMaterial )
+        this.lowerLeftLeg = new THREE.Mesh( lowerLeftLegGeom, legsMaterial )
 
         // Adding the RightLeg in the Scene
         this.leftKnee.add( this.lowerLeftLeg )
@@ -474,13 +421,13 @@ export default class Humanoid{
 
         const rightFootGeom = new THREE.BoxGeometry( footWidth, footHeight, footLenght )
 
-        // rightFoot material
-        const rightFootMaterial = new THREE.MeshStandardMaterial()
-        rightFootMaterial.normalMap = golfNormalTexture
-        rightFootMaterial.color = new THREE.Color('black')
+        // feet material
+        const feetMaterial = new THREE.MeshStandardMaterial()
+        feetMaterial.normalMap = golfNormalTexture
+        feetMaterial.color = new THREE.Color('black')
 
         // rightFoot Mesh
-        this.rightFoot = new THREE.Mesh( rightFootGeom, rightFootMaterial )
+        this.rightFoot = new THREE.Mesh( rightFootGeom, feetMaterial )
 
         // Adding the rightFoot on the lowerRightLeg
         this.lowerRightLeg.add( this.rightFoot )
@@ -492,13 +439,8 @@ export default class Humanoid{
 
         const leftFootGeom = new THREE.BoxGeometry( footWidth, footHeight, footLenght )
 
-        // leftFoot material
-        const leftFootMaterial = new THREE.MeshStandardMaterial()
-        leftFootMaterial.normalMap = golfNormalTexture
-        leftFootMaterial.color = new THREE.Color('black')
-
         // rightFoot Mesh
-        this.leftFoot = new THREE.Mesh( leftFootGeom, leftFootMaterial )
+        this.leftFoot = new THREE.Mesh( leftFootGeom, feetMaterial )
 
         // Adding the leftFoot on the lowerRightLeg
         this.lowerLeftLeg.add( this.leftFoot )
