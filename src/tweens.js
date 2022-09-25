@@ -86,14 +86,6 @@ export default class Tweens{
                 .start()
 
 
-            // new TWEEN.Tween({TxRotation: 0, TyRotation:0, TzRotation:0} )
-            // .to({TxRotation: -Math.PI/20, TyRotation:0 , TzRotation:0}, velTime)
-            //     .onUpdate((coords)=> {
-            //         this.h.torso.rotation.set(coords.TxRotation, coords.TyRotation, coords.TzRotation)
-            //     })
-            //     .easing(easy)
-            //     .start()
-
             })
             .easing(easy)
             //.repeat(Infinity)
@@ -113,13 +105,6 @@ export default class Tweens{
                 .easing(easy)
                 .start()
 
-            // new TWEEN.Tween({TxRotation: -Math.PI/20, TyRotation:0, TzRotation:0} )
-            // .to({TxRotation: 0, TyRotation:0 , TzRotation:0}, velTime)
-            //     .onUpdate((coords)=> {
-            //         this.h.torso.rotation.set(coords.TxRotation, coords.TyRotation, coords.TzRotation)
-            //     })
-            //     .easing(easy)
-            //     .start()
 
         })
         .easing(TWEEN.Easing.Quartic.InOut)

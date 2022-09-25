@@ -16,19 +16,6 @@ export default class Collision{
 
     detectCollsion(scene, body, healtBar, maxHealth){
         
-        
-        // const rayCaster = new THREE.Raycaster()
-
-        // rayCaster.setFromCamera(body.position, camera)
-        // var intersect = rayCaster.intersectObjects(scene.children)
-        // console.log(intersect)
-
-        // for (let i = 0; i < intersect.length; i++){
-        //     if(intersect[i].object.name === 'sphere'){
-        //         intersect[i].object.materialSphere.color.set(0xFFFFFF)
-        //     }
-            
-        // }
 
 
         for (var vertexIndex = 0; vertexIndex < body.geometry.attributes.position.array.length; vertexIndex++){		

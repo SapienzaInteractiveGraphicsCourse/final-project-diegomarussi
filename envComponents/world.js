@@ -59,6 +59,7 @@ export default class Env{
         // Plane material
         const worldMaterial = new THREE.MeshStandardMaterial({
             color: 0xDDDDDD,
+            roughness: 1.0,
             normalMap: normalStreet,
             //map: road
         })

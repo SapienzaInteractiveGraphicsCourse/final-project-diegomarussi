@@ -104,8 +104,8 @@ export default class Humanoid{
 
         // Torso material
         const torsoMaterial = new THREE.MeshStandardMaterial()
-        //torsoMaterial.metalness = 0.7
-        //torsoMaterial.roughness = 0.2
+        torsoMaterial.metalness = 0.1
+        torsoMaterial.roughness = 0.2
         torsoMaterial.color = new THREE.Color(0xff0000)
         torsoMaterial.normalMap = golfNormalTexture
 
