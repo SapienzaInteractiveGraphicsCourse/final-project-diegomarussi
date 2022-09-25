@@ -1,5 +1,4 @@
-import * as THREE from 'three'
-import * as dat from 'dat.gui'
+import * as THREE from '../libs/three_js/three.module.js'
 import Utils from './utils.js'
 
 
@@ -49,7 +48,7 @@ export default class Humanoid{
 
 
         //loading texture
-        const golfNormalTexture = this.utils.getTexture('/texture/streetNormal.png');
+        const golfNormalTexture = this.utils.getTexture('../static/texture/streetNormal.png');
         
         
 
@@ -133,12 +132,12 @@ export default class Humanoid{
 
         // Head material
         const headMultiMaterial = [
-            new THREE.MeshStandardMaterial({ map: this.utils.getTexture('/img/roboticTexture.jpg')}),
-            new THREE.MeshStandardMaterial({ map: this.utils.getTexture('/img/roboticTexture.jpg')}),
-            new THREE.MeshStandardMaterial({ map: this.utils.getTexture('/img/roboticTexture.jpg')}),
-            new THREE.MeshStandardMaterial({ map: this.utils.getTexture('/img/roboticTexture.jpg')}),
-            new THREE.MeshStandardMaterial({ map: this.utils.getTexture('/img/smile1.jpg')}),
-            new THREE.MeshStandardMaterial({ map: this.utils.getTexture('/img/roboticTexture.jpg')}),
+            new THREE.MeshStandardMaterial({ map: this.utils.getTexture('../static/img/roboticTexture.jpg')}),
+            new THREE.MeshStandardMaterial({ map: this.utils.getTexture('../static/img/roboticTexture.jpg')}),
+            new THREE.MeshStandardMaterial({ map: this.utils.getTexture('../static/img/roboticTexture.jpg')}),
+            new THREE.MeshStandardMaterial({ map: this.utils.getTexture('../static/img/roboticTexture.jpg')}),
+            new THREE.MeshStandardMaterial({ map: this.utils.getTexture('../static/img/smile1.jpg')}),
+            new THREE.MeshStandardMaterial({ map: this.utils.getTexture('../static/img/roboticTexture.jpg')}),
         ]
         
         //const headMaterial = new THREE.MeshStandardMaterial()

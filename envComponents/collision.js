@@ -1,5 +1,5 @@
-import { update } from '@tweenjs/tween.js';
-import * as THREE from 'three'
+// import * as TWEEN from '../libs/tween_js/tween.esm.js';
+import * as THREE from '../libs/three_js/three.module.js';
 
 export default class Collision{
 

@@ -1,6 +1,6 @@
-import * as THREE from 'three'
+import * as THREE from '../libs/three_js/three.module.js'
 import Utils from './utils.js'
-import Env from '/envComponents/world.js'
+// import Env from '/envComponents/world.js'
 
 
 export default class StreetLamp{
@@ -26,7 +26,7 @@ export default class StreetLamp{
     createStreetLamp(){
 
         //loading texture
-        const golfNormalTexture = this.utils.getTexture('/texture/streetNormal.png');
+        const golfNormalTexture = this.utils.getTexture('../static/texture/streetNormal.png');
 
     // --------------------  STREET LAMP  --------------------
 

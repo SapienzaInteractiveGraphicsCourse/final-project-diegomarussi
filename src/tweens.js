@@ -1,4 +1,4 @@
-import * as TWEEN from '@tweenjs/tween.js';
+import * as TWEEN from '../libs/tween_js/tween.esm.js';
 import Humanoid from '../envComponents/humanoid.js'
 import { SunLight } from '../envComponents/light.js';
 

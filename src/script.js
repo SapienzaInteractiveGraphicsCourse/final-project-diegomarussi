@@ -1,10 +1,10 @@
-import './style.css'
-import * as THREE from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import * as TWEEN from '@tweenjs/tween.js';
-import * as dat from 'dat.gui'
+// import './style.css';
+import * as THREE from '../libs/three_js/three.module.js';
+import { GUI } from '../libs/human_interface/dat.gui.module.js';
+import { OrbitControls } from '../libs/human_interface/OrbitControls.js';
+import * as TWEEN from '../libs/tween_js/tween.esm.js';
 
-// import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+
 //import * from 'cannon-es';
 
 //importing classes
@@ -35,20 +35,20 @@ const cubeTextureLoader = new THREE.CubeTextureLoader()
 
 // _____ Textures _____
 
-const normalStreet = textureLoader.load('/texture/streetNormal.png')
-const golfNormalTexture = textureLoader.load('/texture/golfNormalMap.png')
-const asphaltNormTexture = textureLoader.load('/texture/normalMapCylinder.png')
+const normalStreet = textureLoader.load('../static/texture/streetNormal.png');
+const golfNormalTexture = textureLoader.load('../static/texture/golfNormalMap.png');
+const asphaltNormTexture = textureLoader.load('../static/texture/normalMapCylinder.png');
 
 
-const background = textureLoader.load('/img/city3.jpg')
+const background = textureLoader.load('../static/img/city3.jpg');
 const cubicBackground = cubeTextureLoader.load([
-    '/img/cityChosen.jpg',
-    '/img/cityChosen.jpg',
-    '/img/space1.jpg',
-    '/img/space1.jpg',
-    '/img/cityChosen.jpg',
-    '/img/cityChosen.jpg'
-    ])
+    '../static/img/cityChosen.jpg',
+    '../static/img/cityChosen.jpg',
+    '../static/img/space1.jpg',
+    '../static/img/space1.jpg',
+    '../static/img/cityChosen.jpg',
+    '../static/img/cityChosen.jpg'
+    ]);
 
 
 
@@ -56,7 +56,7 @@ const cubicBackground = cubeTextureLoader.load([
  * <<<<<<<<<<<<<<<<<<<<<<<<<<   DEBUG and INIT   >>>>>>>>>>>>>>>>>>>>>>>>>>>>
  */
 
- const gui = new dat.GUI()
+ const gui = new GUI();
 
  // Canvas
  const canvas = document.querySelector('canvas.webgl')
@@ -393,7 +393,7 @@ const sound = new THREE.Audio( listener );
 
 // load a sound and set it as the Audio object's buffer
 const audioLoader = new THREE.AudioLoader();
-audioLoader.load( 'sound/mixSuspence.ogg', function( buffer ) {
+audioLoader.load( '../staticsound/mixSuspence.ogg', function( buffer ) {
 	sound.setBuffer( buffer );
 	sound.setLoop( true );
 	sound.setVolume( 5 );

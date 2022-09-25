@@ -1,5 +1,5 @@
-import { GUI } from 'dat.gui';
-import * as THREE from 'three'
+// import { GUI } from 'dat.gui';
+import * as THREE from '../libs/three_js/three.module.js'
 import StreetLamp from './streetLamp.js';
 
 /**

@@ -1,4 +1,4 @@
-import * as THREE from 'three'
+import * as THREE from '../libs/three_js/three.module.js'
 import Utils from './utils.js'
 
 
@@ -29,7 +29,7 @@ export default class Env{
 
     createSphereWorld(){
         
-        const groundNormalTexture = this.utils.getTexture('/texture/streetNormal.png')
+        const groundNormalTexture = this.utils.getTexture('../static/texture/streetNormal.png')
 
         const worldGeom = new THREE.SphereGeometry( this.worldRadius, 128, 64)
 
@@ -52,7 +52,7 @@ export default class Env{
 
     createCylinderWorld(){
         
-        const normalStreet = this.utils.getTexture('/texture/streetNormal.png')
+        const normalStreet = this.utils.getTexture('../static/texture/streetNormal.png')
 
         const worldGeom = new THREE.CylinderGeometry( this.worldRadius, this.worldRadius, 50, 128, 64)
 
@@ -80,7 +80,7 @@ export default class Env{
 
     createVirusObj(x, y, z){
 
-        const virusTex = this.utils.getTexture('/img/virusTex.jpg')
+        const virusTex = this.utils.getTexture('../static/img/virusTex.jpg')
 
         const virusgeom = new THREE.DodecahedronGeometry( this.virusRadius, 0 )
 
@@ -109,7 +109,7 @@ export default class Env{
 
     createWallObj(x, y, z){
 
-        const wallTex = this.utils.getTexture('/texture/wall2NormalMap.png')
+        const wallTex = this.utils.getTexture('../static/texture/wall2NormalMap.png')
 
         const wallgeom = new THREE.BoxGeometry( 3.0, 1.0 + Math.random()*2, 0.5 )
 

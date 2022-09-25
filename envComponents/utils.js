@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+import * as THREE from '../libs/three_js/three.module.js'
 
 
 export default class Utils{

@@ -1,5 +1,5 @@
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import * as THREE from 'three'
+import { GLTFLoader } from '../libs/loaders/GLTFLoader.js';
+import * as THREE from '../libs/three_js/three.module.js';
 
 
 /**
@@ -85,10 +85,10 @@ export default class Modelss{
                 //console.log(pos);
                 
 
-                if(pathObj == '/models3d/surgical_mask.glb'){
+                if(pathObj == '../static/models3d/surgical_mask.glb'){
                     Modelss.loadMask(pathObj, pos.x, pos.y, pos.z, world)
                 }
-                if(pathObj == '/models3d/virus.glb'){
+                if(pathObj == '../static/models3d/virus.glb'){
                     Modelss.loadVirus(pathObj, pos.x, pos.y, pos.z, world)
                 }
 
