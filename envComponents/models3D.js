@@ -108,11 +108,7 @@ export default class Modelss{
 
 }
 
-
-
-
-
-    // // __________ xBot __________
+  // // __________ xBot __________
     //     loadBot(){
             
     //         loader.load('/models3d/Xbot.glb', function(glb){
@@ -124,6 +120,10 @@ export default class Modelss{
     //         })
     //     }
 
+
+
+
+  
         
 
 

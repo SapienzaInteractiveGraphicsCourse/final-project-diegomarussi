@@ -1,10 +1,10 @@
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import * as TWEEN from '@tweenjs/tween.js';
 import * as dat from 'dat.gui'
 
+// import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 //import * from 'cannon-es';
 
 //importing classes
@@ -30,7 +30,6 @@ import Tweens from './tweens.js'
 // _____ Loaders _____
 const textureLoader = new THREE.TextureLoader()
 const cubeTextureLoader = new THREE.CubeTextureLoader()
-const loader = new GLTFLoader();
 
 
 
@@ -426,10 +425,10 @@ function onDocumentKeyDown(event) {
         //jumpTween    // with the key "w" you can jump 
     } else if (keyCode == 65 && human.torso.position.x >-11) {
         human.torso.position.x -= xMove      // with the key "a" you can move behind 
-        //human.torso.rotation.y = Math.PI/6  -->  (this doesn't work because of the arm animation update every 200ms )
+        //human.torso.rotation.y = Math.PI/12  -->  (this doesn't work well )
     } else if (keyCode == 68 && human.torso.position.x <11) {
         human.torso.position.x += xMove      // with the key "d" you can move behind 
-        //human.torso.rotation.y = Math.PI/6
+        //human.torso.rotation.y = -Math.PI/12
     
     } else if (keyCode == 79) {     // with the key "O" you can change the camera position 
         flagChangeCam = !flagChangeCam

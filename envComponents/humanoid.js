@@ -140,11 +140,11 @@ export default class Humanoid{
             new THREE.MeshStandardMaterial({ map: this.utils.getTexture('/img/smile1.jpg')}),
             new THREE.MeshStandardMaterial({ map: this.utils.getTexture('/img/roboticTexture.jpg')}),
         ]
+        
         //const headMaterial = new THREE.MeshStandardMaterial()
         //headMaterial.metalness = 0.7
         //headMaterial.roughness = 0.2
         //headMaterial.color = new THREE.Color(0xfff000)
-        //headMaterial.normalMap = golfNormalTexture
 
         // Head Mesh
         this.head = new THREE.Mesh( headGeom, headMultiMaterial )

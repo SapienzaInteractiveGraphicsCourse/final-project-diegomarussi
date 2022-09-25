@@ -178,28 +178,4 @@ export default class Env{
 
 
 
-
-
-
-    /*
-// --------------------  PLANE  --------------------
-const planeG = new THREE.PlaneGeometry( 30, 30)
-
-// Plane material
-const materialPlane = new THREE.MeshStandardMaterial({
-    color: 0xffffff,
-    side: THREE.DoubleSide,
-    //normalMap: groundNormalTexture,
-    map: groundTex
-})
-
-// Plane Mesh
-const plane = new THREE.Mesh(planeG, materialPlane)
-
-// Adding the Plane in the Scene
-scene.add( plane )
-plane.rotation.x = -0.5 * Math.PI
-plane.receiveShadow = true
-*/
-
 }
