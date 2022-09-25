@@ -26,5 +26,5 @@ CONTROLS AND BUTTON:
 
 
 --> This is my Covid Escape 2022, play at this link:
-    " https://sapienzainteractivegraphicscourse.github.io/final-project-diegomarussi/src/index.html "
+    " https://sapienzainteractivegraphicscourse.github.io/final-project-diegomarussi/ "
 
