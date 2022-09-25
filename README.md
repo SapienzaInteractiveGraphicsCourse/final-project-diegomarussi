@@ -20,11 +20,8 @@ Controls:
   like color, position, and so on.
 
 
-<img
-  src="../img/Covid_game.png"
-  alt="Alt text"
-  title="2020: Covid Game"
-  style="display: inline-block; margin: 0 auto; max-width: 300px">
+![Covid_game](https://user-images.githubusercontent.com/49034820/192124929-13b15d4d-251e-4b23-a3a3-8c7498a3385d.png)
+
 
 
 --> This is my Covid Escape 2022, play at this link:
